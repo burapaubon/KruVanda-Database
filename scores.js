@@ -63,7 +63,7 @@ function sendScore(record) {
     retry.hidden = ok;
   }
   function acknowledge(event) {
-    if (!/^https:\/\/(?:[a-z0-9-]+\.)?script\.googleusercontent\.com$/.test(event.origin) &&
+    if (!/^https:\/\/(?:[a-z0-9-]+[.-])?script\.googleusercontent\.com$/.test(event.origin) &&
         event.origin !== 'https://script.google.com') return;
     const data = event.data;
     if (!data || data.type !== 'kruvanda-score' || data.attemptId !== record.attemptId ||
