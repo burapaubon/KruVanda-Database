@@ -44,7 +44,7 @@ function sendScore(record) {
   const payload = document.createElement('input');
   payload.name = 'payload';
   payload.value = JSON.stringify({attemptId: record.attemptId, name: record.name,
-    classroom: record.classroom, answers: record.answers});
+    classroom: record.classroom, answers: record.answers, quizType: record.quizType || 'pretest'});
   form.appendChild(payload);
   document.body.append(frame, form);
   let finished = false;
@@ -68,6 +68,7 @@ function sendScore(record) {
     const data = event.data;
     if (!data || data.type !== 'kruvanda-score' || data.attemptId !== record.attemptId ||
         typeof data.ok !== 'boolean') return;
+    if (record.quizType === 'posttest' && data.ok && (data.version !== 2 || data.quizType !== 'posttest')) return;
     finish(data.ok);
   }
   window.addEventListener('message', acknowledge);
